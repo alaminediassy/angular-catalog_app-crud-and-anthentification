@@ -39,4 +39,17 @@ export class ProductsComponent {
     }
     })
   }
+
+  handleSetPromotion(p: Product) {
+    let promo=p.promotion;
+    this.productService.setPromotion(p.id).subscribe({
+      next :(data) => {
+        console.log("ok")
+        p.promotion=!promo;
+    },
+      error: err => {
+        this.errorMessage=err;
+      }
+    })
+  }
 }

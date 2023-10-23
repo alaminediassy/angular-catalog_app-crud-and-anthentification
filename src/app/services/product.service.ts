@@ -9,9 +9,9 @@ export class ProductService {
   private  products! : Array<Product>
   constructor() {
     this.products = [
-      { id: 1, name: "Computer", price: 2500 },
-      { id: 2, name: "Printer", price: 750 },
-      { id: 3, name: "Smart phone", price: 1400 },
+      { id: 1, name: "Computer", price: 2500, promotion: true },
+      { id: 2, name: "Printer", price: 750, promotion: false },
+      { id: 3, name: "Smart phone", price: 1400, promotion: true },
     ];
   }
   public getAllProducts() : Observable<Product[]>{
@@ -23,4 +23,10 @@ export class ProductService {
     this.products = this.products.filter(p=>p.id!=id);
     return of(true);
   }
-}
+  public setPromotion(id: number) : Observable<boolean>{
+    let product = this.products.find(p=>p.id==id);
+    if (product !=undefined){
+      product.promotion=!product.promotion;
+      return of(true);
+    } else return throwError(()=> new Error("Product not found"))
+}}
